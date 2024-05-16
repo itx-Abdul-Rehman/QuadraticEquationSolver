@@ -61,24 +61,33 @@ public class QuadraticEquation extends BaseObservable {
         } else if (c==null||getC().isEmpty()) {
             activityMainBinding.editText3.setError("Enter c");
         }else{
-            int value_a=Integer.parseInt(getA());
-            int value_b=Integer.parseInt(getB());
-            int value_c=Integer.parseInt(getC());
 
-            int discriminant=(value_b*value_b)-4*(value_a*value_c);
-            double x1,x2;
-            if(discriminant>0){
-                x1=(-value_b+Math.sqrt(discriminant))/(2*value_a);
-                x2=(-value_b-Math.sqrt(discriminant))/(2*value_a);
-                activityMainBinding.result.setText("x1= "+x1+",x2= "+x2);
-
-            } else if (discriminant<0) {
-                activityMainBinding.result.setText("no real roots");
+            if(getA().matches(".*[a-zA-Z]+.*")){
+                activityMainBinding.editText.setError("Enter only digits");
+            } else if (getB().matches(".*[a-zA-Z]+.*")) {
+                activityMainBinding.editText2.setError("Enter only digits");
+            }else if(getC().matches(".*[a-zA-Z]+.*")){
+                activityMainBinding.editText3.setError("Enter only digits");
             }else{
-                x1=-value_b/(2*value_a);
-                activityMainBinding.result.setText("x= "+x1);
+                int value_a=Integer.parseInt(getA());
+                int value_b=Integer.parseInt(getB());
+                int value_c=Integer.parseInt(getC());
+
+                int discriminant=(value_b*value_b)-4*(value_a*value_c);
+                double x1,x2;
+                if(discriminant>0){
+                    x1=(-value_b+Math.sqrt(discriminant))/(2*value_a);
+                    x2=(-value_b-Math.sqrt(discriminant))/(2*value_a);
+                    activityMainBinding.result.setText("x1= "+x1+",x2= "+x2);
+
+                } else if (discriminant<0) {
+                    activityMainBinding.result.setText("no real roots");
+                }else{
+                    x1=-value_b/(2*value_a);
+                    activityMainBinding.result.setText("x= "+x1);
+                }
+                activityMainBinding.result.setVisibility(View.VISIBLE);
             }
-            activityMainBinding.result.setVisibility(View.VISIBLE);
         }
 
 
